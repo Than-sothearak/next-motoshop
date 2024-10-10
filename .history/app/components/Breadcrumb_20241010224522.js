@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 export default function Breadcrumb() {
   const pathName = usePathname();
   const pathParts = pathName.split("/").filter((part) => part); // Split the path into parts
+ 
   const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
   return (

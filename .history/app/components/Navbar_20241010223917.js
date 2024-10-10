@@ -2,7 +2,6 @@
 import { PiShoppingCartThin } from "react-icons/pi";
 import { CiUser } from "react-icons/ci";
 import { usePathname } from "next/navigation";
-
 const links = [
   { title: "Motobikes", link: "/motobike" },
   {
@@ -35,11 +34,8 @@ const links = [
   { title: "Service", link: "/service" },
 ];
 export default function Navbar() {
-  const pathName = usePathname();
-  const pathParts = pathName.split("/").filter((part) => part); // Split the path into parts
-  const getPathName = "/" + pathParts[0]
-  console.log(getPathName)
- 
+  const partName = usePathname();
+  console.log(partName);
   return (
     <>
       <div className="flex gap-4 h-12 justify-end px-10 items-center">
@@ -70,7 +66,7 @@ export default function Navbar() {
               <div key={link.title} className="group hover:bg-black">
                 <div
                   className={`${
-                    getPathName === link.link ? "bg-black underline" : ""
+                    partName === link.link ? "bg-black underline" : ""
                   } flex gap-4 h-16 px-4 justify-center items-center `}
                 >
                   <a
@@ -105,7 +101,18 @@ export default function Navbar() {
             ))}
           </div>
         </div>
+        <div className="group relative">
+      {/* Button or main element */}
+      <button className="bg-blue-500 text-white px-4 py-2 rounded">
+        Hover me
+      </button>
 
+      {/* Element to show on hover */}
+      <div className="absolute top-0 left-0 mt-10 w-48 bg-white p-4 rounded-lg shadow-lg opacity-0 -translate-y-5 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 group-hover:flex hidden">
+        {/* Content inside the hidden element */}
+        Hidden content appears here!
+      </div>
+    </div>
       </nav>
     </>
   );

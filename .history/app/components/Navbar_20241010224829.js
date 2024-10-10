@@ -37,9 +37,7 @@ const links = [
 export default function Navbar() {
   const pathName = usePathname();
   const pathParts = pathName.split("/").filter((part) => part); // Split the path into parts
-  const getPathName = "/" + pathParts[0]
-  console.log(getPathName)
- 
+  console.log(pathParts.slice(0)[0])
   return (
     <>
       <div className="flex gap-4 h-12 justify-end px-10 items-center">
@@ -70,7 +68,7 @@ export default function Navbar() {
               <div key={link.title} className="group hover:bg-black">
                 <div
                   className={`${
-                    getPathName === link.link ? "bg-black underline" : ""
+                    pathName === link.link ? "bg-black underline" : ""
                   } flex gap-4 h-16 px-4 justify-center items-center `}
                 >
                   <a

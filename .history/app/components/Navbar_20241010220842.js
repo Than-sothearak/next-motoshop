@@ -11,11 +11,10 @@ const links = [
     subLink: [
       {
         title: "Fullface",
-        link: "/helmets/full-face",
+        link: "/helmets/fullface",
         image:
           "https://pngimg.com/uploads/motorcycle_helmets/motorcycle_helmets_PNG9630.png",
       },
-
       {
         title: "Open Face",
         link: "/helmets/openface",
@@ -34,12 +33,10 @@ const links = [
   { title: "Accessories", link: "/accessories" },
   { title: "Service", link: "/service" },
 ];
+
 export default function Navbar() {
-  const pathName = usePathname();
-  const pathParts = pathName.split("/").filter((part) => part); // Split the path into parts
-  const getPathName = "/" + pathParts[0]
-  console.log(getPathName)
- 
+  const partName = usePathname();
+  console.log(partName);
   return (
     <>
       <div className="flex gap-4 h-12 justify-end px-10 items-center">
@@ -67,37 +64,37 @@ export default function Navbar() {
 
           <div className="flex text-white">
             {links.map((link) => (
-              <div key={link.title} className="group hover:bg-black">
+              <div key={link.title} className="group hover:bg-black relative">
                 <div
                   className={`${
-                    getPathName === link.link ? "bg-black underline" : ""
+                    partName === link.link ? "bg-black underline" : ""
                   } flex gap-4 h-16 px-4 justify-center items-center `}
                 >
                   <a
                     href={link.link}
                     className="cursor-pointer hover:underline"
                   >
-                    <h3>{link.title} </h3>
+                    <h3>{link.title}</h3>
                   </a>
                 </div>
+
+                {/* Sub-navigation */}
                 {link.subLink && (
-                  <div className="bg-white border container mx-auto shadow-sm p-4  justify-center absolute z-20 top-16 right-0 left-0 hidden group-hover:flex opacity-0 -translate-y-5 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+                  <div className="bg-white container mx-auto shadow-sm p-4 justify-center absolute z-20 top-16 left-0 hidden group-hover:flex transition-opacity duration-500 opacity-0 group-hover:opacity-100">
                     <div className="flex gap-10 font-monument">
-                      {link.subLink.map((subLink) => (
-                        
-                        <div key={subLink.title} className="flex flex-row gap-10">
-                          <a
-                            href={subLink.link}
-                            className="flex flex-col gap-4 justify-between items-center cursor-pointer transform transition duration-300 ease-in-out hover:scale-105 hover:rotate-1 hover:translate-y-2"
-                          >
-                            <div className="w-24">
-                              <img src={subLink.image} alt={subLink.image}  className="transform transition duration-300 ease-in-out hover:scale-110"/>
-                            </div>
-                            <p className="text-black">{subLink.title}</p>
-                          </a>
-                          <div className="border"></div>
-                        </div>
+                      {link.subLink.map((subItem) => (
+                        <a
+                          key={subItem.title}
+                          href={subItem.link}
+                          className="flex flex-col justify-center items-center cursor-pointer"
+                        >
+                          <div className="w-24">
+                            <img src={subItem.image} alt={subItem.title} />
+                          </div>
+                          <p className="text-black">{subItem.title}</p>
+                        </a>
                       ))}
+                      <div className="border"></div>
                     </div>
                   </div>
                 )}
@@ -105,7 +102,6 @@ export default function Navbar() {
             ))}
           </div>
         </div>
-
       </nav>
     </>
   );
